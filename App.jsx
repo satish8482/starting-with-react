@@ -1,52 +1,43 @@
 import React from 'react';
 
 class App extends React.Component {
-   constructor(props) {
-      super(props);
-      
+   constructor() {
+      super();
+		
       this.state = {
-         data: 0
+         data:[
+            {
+               component: 'First...',
+               id: 1
+            },
+            {
+               component: 'Second...',
+               id: 2
+            },
+            {
+               component: 'Third...',
+               id: 3
+            }
+         ]
       }
-      this.setNewNumber = this.setNewNumber.bind(this)
-   };
-   setNewNumber() {
-      this.setState({data: this.state.data + 1})
    }
    render() {
       return (
          <div>
-            <button onClick = {this.setNewNumber}>INCREMENT</button>
-            <Content myNumber = {this.state.data}></Content>
+            <div>
+               {this.state.data.map((dynamicComponent, i) => <Content 
+                  key = {i} componentData = {dynamicComponent}/>)}
+            </div>
          </div>
       );
    }
 }
 class Content extends React.Component {
-   componentWillMount() {
-      console.log('Component WILL MOUNT!')
-   }
-   componentDidMount() {
-      console.log('Component DID MOUNT!')
-   }
-   componentWillReceiveProps(newProps) {    
-      console.log('Component WILL RECIEVE PROPS!')
-   }
-   shouldComponentUpdate(newProps, newState) {
-      return true;
-   }
-   componentWillUpdate(nextProps, nextState) {
-      console.log('Component WILL UPDATE!');
-   }
-   componentDidUpdate(prevProps, prevState) {
-      console.log('Component DID UPDATE!')
-   }
-   componentWillUnmount() {
-      console.log('Component WILL UNMOUNT!')
-   }
    render() {
       return (
          <div>
-            <h3>{this.props.myNumber}</h3>
+            <div>{this.props.componentData.component}</div>
+            <div>{this.props.componentData.id}</div>
          </div>
       );
    }
